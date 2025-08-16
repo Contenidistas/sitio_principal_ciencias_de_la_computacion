@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Temas Optativa EMS – Ciencias de la Computación</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+  />
+  <style>
+    .card { transition: transform .3s, box-shadow .3s; }
+    .card:hover { transform: translateY(-5px); box-shadow:0 10px 20px rgba(0,0,0,.1); }
+    .resource-btn {
+      background-color: #c0392b;
+      color: white;
+      padding: .5rem 1rem;
+      margin: .5rem;
+      border-radius: .375rem;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .resource-btn:hover { background-color: #922b21; }
+    .resource-btn.inactive {
+      background-color: #cbd5e1;
+      color: #475569;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-red-700 text-white py-6">
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl font-bold">Optativa EMS – Temas</h1>
+      <p>Selecciona un proyecto para ver sus recursos.</p>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-8 flex-1">
+
+    <!-- Volver a Niveles -->
+    <button
+      onclick="location.href='niveles.html'"
+      class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded inline-flex items-center mb-8"
+    >
+      <i class="fas fa-arrow-left mr-2"></i>
+      Volver a Niveles
+    </button>
+
+    <!-- Tarjetas de Tema -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <a href="#robotica"
+         class="card bg-white rounded-lg shadow-md p-6 text-center hover:bg-gray-50">
+        <i class="fas fa-robot text-5xl text-red-600 mb-4"></i>
+        <h2 class="text-xl font-bold">Robótica</h2>
+      </a>
+      <a href="#programacion"
+         class="card bg-white rounded-lg shadow-md p-6 text-center hover:bg-gray-50">
+        <i class="fas fa-code text-5xl text-red-600 mb-4"></i>
+        <h2 class="text-xl font-bold">Programación</h2>
+      </a>
+      <a href="#diseno"
+         class="card bg-white rounded-lg shadow-md p-6 text-center hover:bg-gray-50">
+        <i class="fas fa-laptop-code text-5xl text-red-600 mb-4"></i>
+        <h2 class="text-xl font-bold">Diseño Web</h2>
+      </a>
+    </div>
+
+    <!-- Robótica -->
+    <section id="robotica" class="mb-12 bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold mb-4">Robótica</h3>
+      <div class="flex flex-wrap">
+        <a href="https://uruguayeduca.anep.edu.uy/recursos-educativos/7043" target="_blank"
+           class="resource-btn">
+          Proyecto de Robótica STEAM
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Programación -->
+    <section id="programacion" class="mb-12 bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold mb-4">Programación</h3>
+      <div class="flex flex-wrap">
+        <a href="https://uruguayeduca.anep.edu.uy/recursos-educativos" target="_blank"
+           class="resource-btn">
+          Proyecto de Programación EMS
+        </a>
+ 
+      </div>
+    </section>
+
+    <!-- Diseño Web -->
+    <section id="diseno" class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold mb-4">Diseño Web</h3>
+      <div class="flex flex-wrap">
+        <a href="https://uruguayeduca.anep.edu.uy/recursos-educativos" target="_blank"
+           class="resource-btn">
+          Proyecto de Diseño Web EMS
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-gray-800 text-white py-6 text-center">
+    <p>Plataforma para profesores – DGES ANEP</p>
+    <p class="text-gray-400 mt-2">CC BY 4C – Santiago Hernández & Gustavo Farías</p>
+  </footer>
+
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

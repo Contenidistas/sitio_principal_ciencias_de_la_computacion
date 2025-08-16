@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Repositorio Integrado de Ciencias de la Computación</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; }
+    .card { transition: transform .3s, box-shadow .3s; }
+    .card:hover { transform: translateY(-5px); box-shadow:0 10px 20px rgba(0,0,0,.1); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md py-4">
+    <div class="container mx-auto px-4 flex items-center justify-between">
+      <div class="flex items-center">
+        <img src="https://edytic.ces.edu.uy/images/imagen/descarga.png"
+             alt="Logo EdyTIC" class="h-16 mr-4">
+        <img src="https://www.dges.edu.uy/themes/custom/dges/logo.svg"
+             alt="Logo DGES" class="h-16">
+      </div>
+      <h1 class="text-3xl font-bold text-gray-800">
+        Repositorio Integrado de Ciencias de la Computación
+      </h1>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 flex-1">
+
+    <!-- Intro -->
+    <section class="my-8">
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-bold mb-2">
+          Bienvenido al repositorio integrado
+        </h2>
+        <p class="text-gray-700">
+          Aquí encuentras los documentos oficiales y todos los recursos organizados
+          por nivel educativo o por tema, todo en un único lugar.
+        </p>
+      </div>
+    </section>
+
+    <!-- Acceso rápido (moved up) -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Acceso rápido</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <a href="niveles.html"
+           class="card bg-green-500 text-white rounded-lg shadow-md p-8 text-center hover:bg-green-600">
+          <i class="fas fa-layer-group text-4xl mb-4"></i>
+          <span class="text-xl font-semibold">Ver por Nivel</span>
+        </a>
+        <a href="temas.html"
+           class="card bg-blue-500 text-white rounded-lg shadow-md p-8 text-center hover:bg-blue-600">
+          <i class="fas fa-tags text-4xl mb-4"></i>
+          <span class="text-xl font-semibold">Ver por Tema</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Documentos oficiales -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Documentos Oficiales</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Tramo 5 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden card">
+          <div class="p-6">
+            <h3 class="font-bold text-gray-800 mb-2">Programa Tramo 5 (7º y 8º)</h3>
+            <p class="text-gray-600 mb-4">
+              Programa oficial para Ciencias de la Computación – Tramo 5
+            </p>
+            <a href="https://www.anep.edu.uy/.../Tramo%205.pdf"
+               target="_blank"
+               class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+              <i class="fas fa-download mr-2"></i>Descargar
+            </a>
+          </div>
+        </div>
+        <!-- Tramo 6 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden card">
+          <div class="p-6">
+            <h3 class="font-bold text-gray-800 mb-2">Programa Tramo 6 (9º)</h3>
+            <p class="text-gray-600 mb-4">
+              Programa oficial para Ciencias de la Computación – Tramo 6
+            </p>
+            <a href="https://www.anep.edu.uy/.../Tramo%206.pdf"
+               target="_blank"
+               class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+              <i class="fas fa-download mr-2"></i>Descargar
+            </a>
+          </div>
+        </div>
+        <!-- Programa EMS -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden card">
+          <div class="p-6">
+            <h3 class="font-bold text-gray-800 mb-2">Programa EMS</h3>
+            <p class="text-gray-600 mb-4">
+              Programa oficial Optativa Ciencias de la Computación EMS
+            </p>
+            <a href="https://www.anep.edu.uy/.../EMS.pdf"
+               target="_blank"
+               class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+              <i class="fas fa-download mr-2"></i>Descargar
+            </a>
+          </div>
+        </div>
+        <!-- Marco Curricular -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden card">
+          <div class="p-6">
+            <h3 class="font-bold text-gray-800 mb-2">Marco Curricular Nacional</h3>
+            <p class="text-gray-600 mb-4">
+              Documento oficial del Marco Curricular Nacional 2022
+            </p>
+            <a href="https://www.anep.edu.uy/.../MCN2022.pdf"
+               target="_blank"
+               class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+              <i class="fas fa-download mr-2"></i>Descargar
+            </a>
+          </div>
+        </div>
+        <!-- Progresiones -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden card">
+          <div class="p-6">
+            <h3 class="font-bold text-gray-800 mb-2">Progresiones de Aprendizaje</h3>
+            <p class="text-gray-600 mb-4">
+              Documento oficial Progresiones de Aprendizaje 2022
+            </p>
+            <a href="https://www.anep.edu.uy/.../Progresiones2022.pdf"
+               target="_blank"
+               class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+              <i class="fas fa-download mr-2"></i>Descargar
+            </a>
+          </div>
+        </div>
+        <!-- Repositorio Uruguay Educa -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden card">
+          <div class="p-6">
+            <h3 class="font-bold text-gray-800 mb-2">Repositorio de Recursos</h3>
+            <p class="text-gray-600 mb-4">
+              Acceso al repositorio Uruguay Educa
+            </p>
+            <a href="https://uruguayeduca.anep.edu.uy/recursos-educativos"
+               target="_blank"
+               class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+              <i class="fas fa-external-link-alt mr-2"></i>Acceder
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-6">
+    <div class="container mx-auto px-4 text-center">
+      <p>Plataforma para profesores – DGES ANEP</p>
+      <p class="mt-2 text-gray-400">
+        Obra bajo licencia CC BY 4C Creada por Santiago Hernández y Gustavo Farías
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

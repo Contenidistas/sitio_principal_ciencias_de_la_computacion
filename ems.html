@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Optativa EMS – Ciencias de la Computación</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+  />
+  <style>
+    .card { transition: transform .3s, box-shadow .3s; }
+    .card:hover { transform: translateY(-5px); box-shadow:0 10px 20px rgba(0,0,0,.1); }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-red-700 text-white py-6">
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl font-bold">Ciencias de la Computación – Optativa EMS</h1>
+      <p class="mt-2">Recursos educativos organizados por proyectos para la Optativa de EM Superior.</p>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-8 flex-1">
+
+    <!-- Volver a Niveles -->
+    <button
+      onclick="location.href='niveles.html'"
+      class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded inline-flex items-center mb-8"
+    >
+      <i class="fas fa-arrow-left mr-2"></i>
+      Volver a Niveles
+    </button>
+
+    <!-- Información general -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-2xl font-semibold mb-4">Información general</h2>
+      <p class="text-gray-700 mb-2">
+        En la Optativa EMS se desarrollan proyectos de Robótica, Programación y Diseño Web,
+        fomentando habilidades prácticas y colaborativas según el programa de Educación Media Superior.
+      </p>
+      <p class="text-gray-700">
+        Elige uno de los proyectos para acceder a los recursos educativos correspondientes:
+      </p>
+    </div>
+
+    <!-- Proyectos (temas) -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <a href="ems_temas.html#robotica"
+         class="card bg-white rounded-lg shadow-md p-6 text-center hover:bg-gray-50">
+        <i class="fas fa-robot text-5xl text-red-600 mb-4"></i>
+        <h3 class="text-xl font-bold">Robótica</h3>
+        <p class="text-gray-600 mt-2">
+          Proyectos con sensores y actuadores, integración hardware/software.
+        </p>
+      </a>
+
+      <a href="ems_temas.html#programacion"
+         class="card bg-white rounded-lg shadow-md p-6 text-center hover:bg-gray-50">
+        <i class="fas fa-code text-5xl text-red-600 mb-4"></i>
+        <h3 class="text-xl font-bold">Programación</h3>
+        <p class="text-gray-600 mt-2">
+          Desarrollo de aplicaciones y algoritmos con lenguajes de alto nivel.
+        </p>
+      </a>
+
+      <a href="ems_temas.html#diseno"
+         class="card bg-white rounded-lg shadow-md p-6 text-center hover:bg-gray-50">
+        <i class="fas fa-laptop-code text-5xl text-red-600 mb-4"></i>
+        <h3 class="text-xl font-bold">Diseño Web</h3>
+        <p class="text-gray-600 mt-2">
+          Creación de sitios y aplicaciones web responsivas con HTML, CSS y JavaScript.
+        </p>
+      </a>
+    </section>
+
+  </main>
+
+  <footer class="bg-gray-800 text-white py-6">
+    <div class="container mx-auto px-4 text-center">
+      <p>Plataforma para profesores – DGES ANEP</p>
+      <p class="mt-2 text-gray-400">CC BY 4C – Santiago Hernández & Gustavo Farías</p>
+    </div>
+  </footer>
+
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recursos de 7º Grado – Ciencias de la Computación</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+  />
+  <style>
+    .card {
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .resource-btn {
+      background-color: #1e40af;
+      color: white;
+      padding: 0.5rem 1rem;
+      margin: 0.5rem;
+      border-radius: 0.375rem;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .resource-btn:hover {
+      background-color: #1e3a8a;
+    }
+    .resource-btn.inactive {
+      background-color: #cbd5e1;
+      color: #475569;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+  <div class="container mx-auto px-4 py-8">
+
+    <!-- Volver a Niveles -->
+    <button
+      onclick="location.href='niveles.html'"
+      class="card bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded inline-flex items-center mb-6 hover:bg-gray-300"
+    >
+      <i class="fas fa-arrow-left mr-2"></i>
+      Volver a Niveles
+    </button>
+
+    <h1 class="text-3xl font-bold mb-8">Recursos de 7º Grado por Tema</h1>
+
+    <!-- Tarjetas de Tema -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <a href="#alfabetizacion"
+         class="card bg-white rounded-lg shadow-md p-6 text-center hover:bg-gray-50">
+        <h2 class="text-lg font-bold">Alfabetización y Ciudadanía Digital</h2>
+      </a>
+      <a href="#algoritmia"
+         class="card bg-white rounded-lg shadow-md p-6 text-center hover:bg-gray-50">
+        <h2 class="text-lg font-bold">Algoritmia, Programación y Robótica</h2>
+      </a>
+      <a href="#procesamiento"
+         class="card bg-white rounded-lg shadow-md p-6 text-center hover:bg-gray-50">
+        <h2 class="text-lg font-bold">Procesamiento de Información</h2>
+      </a>
+      <a href="#arquitectura"
+         class="card bg-white rounded-lg shadow-md p-6 text-center hover:bg-gray-50">
+        <h2 class="text-lg font-bold">Arquitectura de Dispositivos, Redes e Internet</h2>
+      </a>
+    </div>
+
+    <!-- Sección: Alfabetización -->
+    <section id="alfabetizacion" class="mb-12 bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold mb-4">Alfabetización y Ciudadanía Digital</h3>
+      <div class="flex flex-wrap">
+        <a href="https://contenidistas.github.io/ciudadaniaDigital7/index.html" target="_blank"
+           class="resource-btn">
+          Ciudadanía Digital
+        </a>
+        <a href="https://uruguayeduca.anep.edu.uy/recursos-educativos" target="_blank"
+           class="resource-btn">
+          próximo recurso...
+        </a>
+        
+      <a href="https://uruguayeduca.anep.edu.uy/recursos-educativos/10220"
+      target="_blank"
+      class="resource-btn">
+       Criterios de búsqueda de información
+            </a>  
+
+
+
+      </div>
+    </section>
+
+    <!-- Sección: Algoritmia y porgramación -->
+    <section id="algoritmia" class="mb-12 bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold mb-4">Algoritmia, Programación y Robótica</h3>
+      <div class="flex flex-wrap">
+        <a href="https://uruguayeduca.anep.edu.uy/recursos-educativos/11177" target="_blank" class="resource-btn">
+          Módulo de porgramación y algoritmia
+        </a>
+
+       <a href="http://uruguayeduca.anep.edu.uy/recursos-educativos/8094" target="_blank" class="resource-btn">
+          La importancia de los algoritmos
+        </a>
+
+     <a href="http://uruguayeduca.anep.edu.uy/recursos-educativos/10187"
+      target="_blank"
+      class="resource-btn">
+       ¡Luz, Micro:bit y acción!
+        </a>
+
+             <a href="http://uruguayeduca.anep.edu.uy/recursos-educativos/8090"
+      target="_blank"
+      class="resource-btn">
+          Introducción a variables
+            </a>
+
+           <a href="http://uruguayeduca.anep.edu.uy/recursos-educativos/9743"
+      target="_blank"
+      class="resource-btn">
+          Estructuras de control
+            </a>
+
+
+      </div>
+    </section>
+
+    <!-- Sección: Procesamiento -->
+    <section id="procesamiento" class="mb-12 bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold mb-4">Procesamiento de Información</h3>
+      <div class="flex flex-wrap">
+        <a href="https://uruguayeduca.anep.edu.uy/recursos-educativos" target="_blank"
+           class="resource-btn">
+          Introducción a los Datos
+        </a>
+
+
+
+
+      </div>
+    </section>
+
+    <!-- Sección: Arquitectura -->
+    <section id="arquitectura" class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold mb-4">Arquitectura de Dispositivos, Redes e Internet</h3>
+      <div class="flex flex-wrap">
+        <a href="https://uruguayeduca.anep.edu.uy/recursos-educativos/9735" target="_blank"
+           class="resource-btn">
+         Sistema informático
+        </a>
+
+      <a href="https://uruguayeduca.anep.edu.uy/recursos-educativos/9599"
+      target="_blank"
+      class="resource-btn">
+          Software
+            </a>
+
+
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>

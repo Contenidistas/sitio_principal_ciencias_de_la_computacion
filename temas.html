@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Temas – Ciencias de la Computación</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .card { transition: transform .3s,box-shadow .3s; }
+    .card:hover { transform: translateY(-5px); box-shadow:0 10px 20px rgba(0,0,0,.1); }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto px-4 py-8">
+    <a href="index.html" class="inline-block mb-8 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded">
+      ← Volver al inicio
+    </a>
+    <h1 class="text-3xl font-bold mb-6">Selecciona un Tema</h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <a href="temas/alfabetizacion.html"
+         class="card bg-white rounded-lg shadow-md p-6 text-center hover:bg-gray-50">
+        <h2 class="text-lg font-bold">Alfabetización y Ciudadanía Digital</h2>
+      </a>
+      <a href="temas/algoritmia.html"
+         class="card bg-white rounded-lg shadow-md p-6 text-center hover:bg-gray-50">
+        <h2 class="text-lg font-bold">Algoritmia, Programación y Robótica</h2>
+      </a>
+      <a href="temas/procesamiento.html"
+         class="card bg-white rounded-lg shadow-md p-6 text-center hover:bg-gray-50">
+        <h2 class="text-lg font-bold">Procesamiento de Información</h2>
+      </a>
+      <a href="temas/arquitectura.html"
+         class="card bg-white rounded-lg shadow-md p-6 text-center hover:bg-gray-50">
+        <h2 class="text-lg font-bold">Arquitectura de Dispositivos, Redes e Internet</h2>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
