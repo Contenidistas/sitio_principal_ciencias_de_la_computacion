@@ -32,6 +32,18 @@
 
   <main class="container mx-auto px-4 flex-1">
 
+    <!-- Banner Acceso CIECCU (Parte Superior) -->
+    <section class="mt-6 text-center">
+      <a href="cieccu.html" class="inline-block group transform hover:scale-[1.02] transition-all duration-300">
+        <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md hover:border-indigo-200 transition duration-300">
+          <img src="img/cieccu_logo_horizontal.png" alt="Acceso al Congreso CIECCU" class="max-h-20 md:max-h-24 mx-auto object-contain">
+          <span class="block text-xs font-bold text-indigo-600 uppercase tracking-wider mt-2 group-hover:text-indigo-700 transition">
+            <i class="fas fa-external-link-alt mr-1"></i> Entrar al Portal del Congreso
+          </span>
+        </div>
+      </a>
+    </section>
+
     <!-- Intro -->
     <section class="my-8">
       <div class="bg-white rounded-lg shadow-md p-6">
@@ -45,7 +57,7 @@
       </div>
     </section>
 
-    <!-- Acceso rápido (moved up) -->
+    <!-- Acceso rápido -->
     <section class="mb-8">
       <h2 class="text-2xl font-bold text-gray-800 mb-4">Acceso rápido</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -71,10 +83,11 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
 
         <!-- Botón Comentarios -->
-        <a href="ENLACE_A_TU_FORMULARIO"
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScTTw9D5QBXqV3YUqXLkyZTdq5P54fJAXt8XecAZwJfevbRlQ/viewform?usp=dialog"
+           target="_blank"
            class="card bg-yellow-500 text-white rounded-lg shadow-md p-6 text-center hover:bg-yellow-600">
           <i class="fas fa-comment-dots text-3xl mb-3"></i>
-          <h3 class="text-xl font-semibold">Dejar un comentario</h3>
+          <h3 class="text-xl font-semibold">Sugerencias</h3>
           <p class="mt-2 text-sm">Comparte tus sugerencias sobre el sitio.</p>
         </a>
 
@@ -113,89 +126,105 @@
 
     <!-- Documentos oficiales -->
     <section class="mb-12">
-      <h2 class="text-2xl font-bold text-gray-800 mb-4">Documentos Oficiales</h2>
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Documentos Oficiales (Revisión 2026)</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Tramo 5 -->
+        <!-- EBI -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden card">
           <div class="p-6">
-            <h3 class="font-bold text-gray-800 mb-2">Programa Tramo 5 (7º y 8º)</h3>
+            <h3 class="font-bold text-gray-800 mb-2">Programas EBI (7º, 8º y 9º)</h3>
             <p class="text-gray-600 mb-4">
-              Programa oficial para Ciencias de la Computación – Tramo 5
+              Programas oficiales para Educación Básica Integrada (Ciencias de la Computación):
             </p>
-            <a href="https://www.anep.edu.uy/sites/default/files/images/te-programas/2023/finales/espacios/espacio-tecnico-tecnologico/Ciencias%20de%20la%20Computaci%C3%B3n%20-%20Tramo%205.pdf"
-               target="_blank"
-               class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
-              <i class="fas fa-download mr-2"></i>Descargar
-            </a>
+            <div class="space-y-2">
+              <a href="https://www.dges.edu.uy/sites/default/files/Planes_programas/2026/Cs-computacion/EBI/EBI%20Ciencias%20de%20la%20computaci%C3%B3n%207mo%20A%C3%B1o.pdf"
+                 target="_blank"
+                 class="block w-full text-left bg-gray-50 hover:bg-gray-150 p-2.5 rounded border text-sm text-gray-700 font-semibold transition">
+                <i class="fas fa-file-pdf text-red-500 mr-2"></i>7.º Año (EBI) - Descargar
+              </a>
+              <a href="https://www.dges.edu.uy/sites/default/files/Planes_programas/2026/Cs-computacion/EBI/EBI%20Ciencias%20de%20la%20computaci%C3%B3n%208vo%20A%C3%B1o.pdf"
+                 target="_blank"
+                 class="block w-full text-left bg-gray-50 hover:bg-gray-150 p-2.5 rounded border text-sm text-gray-700 font-semibold transition">
+                <i class="fas fa-file-pdf text-red-500 mr-2"></i>8.º Año (EBI) - Descargar
+              </a>
+              <a href="https://www.dges.edu.uy/sites/default/files/Planes_programas/2026/Cs-computacion/EBI/EBI%20Ciencias%20de%20la%20computaci%C3%B3n%209no%20A%C3%B1o.pdf"
+                 target="_blank"
+                 class="block w-full text-left bg-gray-50 hover:bg-gray-150 p-2.5 rounded border text-sm text-gray-700 font-semibold transition">
+                <i class="fas fa-file-pdf text-red-500 mr-2"></i>9.º Año (EBI) - Descargar
+              </a>
+            </div>
           </div>
         </div>
-        <!-- Tramo 6 -->
+        <!-- EMS -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden card">
           <div class="p-6">
-            <h3 class="font-bold text-gray-800 mb-2">Programa Tramo 6 (9º)</h3>
+            <h3 class="font-bold text-gray-800 mb-2">Programas EMS (1º, 2º y 3º)</h3>
             <p class="text-gray-600 mb-4">
-              Programa oficial para Ciencias de la Computación – Tramo 6
+              Programas oficiales para Educación Media Superior (Ciencias de la Computación):
             </p>
-            <a href=" https://www.anep.edu.uy/sites/default/files/images/te-programas/2023/finales/espacios/espacio-tecnico-tecnologico/Ciencias%20de%20la%20Computaci%C3%B3n%20-%20Tramo%206v.pdf"
-               target="_blank"
-               class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
-              <i class="fas fa-download mr-2"></i>Descargar
-            </a>
-          </div>
-        </div>
-        <!-- Programa EMS -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden card">
-          <div class="p-6">
-            <h3 class="font-bold text-gray-800 mb-2">Programa EMS</h3>
-            <p class="text-gray-600 mb-4">
-              Programa oficial Optativa Ciencias de la Computación EMS
-            </p>
-            <a href="https://www.anep.edu.uy/sites/default/files/images/te-programas/2024/2-3-EM/DGES/3ero/Ciencias%20de%20la%20Computaci%C3%B3n%203ro%20DGES%20EMS.pdf"
-               target="_blank"
-               class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
-              <i class="fas fa-download mr-2"></i>Descargar
-            </a>
+            <div class="space-y-2">
+              <a href="https://www.dges.edu.uy/sites/default/files/Planes_programas/2026/Cs-computacion/EMS/EMS%20Optativa%20Ciencias%20de%20la%20Computaci%C3%B3n%20y%20Tecnolog%C3%ADas%20Digiales%201er%20A%C3%B1o.pdf"
+                 target="_blank"
+                 class="block w-full text-left bg-gray-50 hover:bg-gray-150 p-2.5 rounded border text-sm text-gray-700 font-semibold transition">
+                <i class="fas fa-file-pdf text-red-500 mr-2"></i>1.er Año (EMS) - Descargar
+              </a>
+              <a href="https://www.dges.edu.uy/sites/default/files/Planes_programas/2026/Cs-computacion/EMS/EMS%20Optativa%20Ciencias%20de%20la%20Computaci%C3%B3n%202do%20A%C3%B1o.pdf"
+                 target="_blank"
+                 class="block w-full text-left bg-gray-50 hover:bg-gray-150 p-2.5 rounded border text-sm text-gray-700 font-semibold transition">
+                <i class="fas fa-file-pdf text-red-500 mr-2"></i>2.º Año (EMS) - Descargar
+              </a>
+              <a href="https://www.dges.edu.uy/sites/default/files/Planes_programas/2026/Cs-computacion/EMS/EMS%20Optativa%20Ciencias%20de%20la%20Computaci%C3%B3n%203er%20a%C3%B1o.pdf"
+                 target="_blank"
+                 class="block w-full text-left bg-gray-50 hover:bg-gray-150 p-2.5 rounded border text-sm text-gray-700 font-semibold transition">
+                <i class="fas fa-file-pdf text-red-500 mr-2"></i>3.er Año (EMS) - Descargar
+              </a>
+            </div>
           </div>
         </div>
         <!-- Marco Curricular -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden card">
-          <div class="p-6">
-            <h3 class="font-bold text-gray-800 mb-2">Marco Curricular Nacional</h3>
-            <p class="text-gray-600 mb-4">
-              Documento oficial del Marco Curricular Nacional 2022
-            </p>
+        <div class="bg-white rounded-lg shadow-md overflow-hidden card flex flex-col justify-between">
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-bold text-gray-800 mb-2">Marco Curricular Nacional</h3>
+              <p class="text-gray-600 mb-4">
+                Documento oficial del Marco Curricular Nacional 2022 - ANEP
+              </p>
+            </div>
             <a href="https://www.anep.edu.uy/sites/default/files/images/Archivos/publicaciones/Marco-Curricular-Nacional-2022/MCN%202%20Agosto%202022%20v13.pdf"
                target="_blank"
-               class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
-              <i class="fas fa-download mr-2"></i>Descargar
+               class="inline-block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition">
+              <i class="fas fa-download mr-2"></i>Descargar Marco Curricular
             </a>
           </div>
         </div>
         <!-- Progresiones -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden card">
-          <div class="p-6">
-            <h3 class="font-bold text-gray-800 mb-2">Progresiones de Aprendizaje</h3>
-            <p class="text-gray-600 mb-4">
-              Documento oficial Progresiones de Aprendizaje 2022
-            </p>
+        <div class="bg-white rounded-lg shadow-md overflow-hidden card flex flex-col justify-between">
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-bold text-gray-800 mb-2">Progresiones de Aprendizaje</h3>
+              <p class="text-gray-600 mb-4">
+                Documento oficial de las Progresiones de Aprendizaje 2022
+              </p>
+            </div>
             <a href="https://www.anep.edu.uy/sites/default/files/images/2022/noticias/agosto/220829/Progresiones%20de%20Aprendizaje%202022%20v4.pdf"
                target="_blank"
-               class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
-              <i class="fas fa-download mr-2"></i>Descargar
+               class="inline-block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition">
+              <i class="fas fa-download mr-2"></i>Descargar Progresiones
             </a>
           </div>
         </div>
         <!-- Repositorio Uruguay Educa -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden card">
-          <div class="p-6">
-            <h3 class="font-bold text-gray-800 mb-2">Repositorio de Recursos</h3>
-            <p class="text-gray-600 mb-4">
-              Acceso al repositorio Uruguay Educa
-            </p>
+        <div class="bg-white rounded-lg shadow-md overflow-hidden card flex flex-col justify-between">
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-bold text-gray-800 mb-2">Repositorio Uruguay Educa</h3>
+              <p class="text-gray-600 mb-4">
+                Acceso al portal educativo nacional de recursos didácticos
+              </p>
+            </div>
             <a href="https://uruguayeduca.anep.edu.uy/recursos-educativos"
                target="_blank"
-               class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
-              <i class="fas fa-external-link-alt mr-2"></i>Acceder
+               class="inline-block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition">
+              <i class="fas fa-external-link-alt mr-2"></i>Acceder a Uruguay Educa
             </a>
           </div>
         </div>

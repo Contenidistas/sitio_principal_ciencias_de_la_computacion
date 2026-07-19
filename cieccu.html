@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CIECCU - Congreso de Innovación Educativa de Ciencias de la Computación de Uruguay</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; }
+    .card { transition: transform .3s, box-shadow .3s; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,.08); }
+    .tab-active { border-bottom-width: 4px; border-color: #4f46e5; color: #4f46e5; font-weight: 700; }
+    .year-active { background-color: #4f46e5; color: #ffffff; font-weight: 700; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md py-4">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center">
+        <a href="index.html" class="mr-4 hover:opacity-85 transition-opacity">
+          <img src="https://edytic.ces.edu.uy/images/imagen/descarga.png" alt="Logo EdyTIC" class="h-16 mr-2">
+        </a>
+        <img src="https://www.dges.edu.uy/themes/custom/dges/logo.svg" alt="Logo DGES" class="h-16">
+      </div>
+      <h1 class="text-2xl md:text-3xl font-bold text-gray-800 text-center md:text-left">
+        Congreso de Innovación Educativa de Ciencias de la Computación de Uruguay
+      </h1>
+      <a href="index.html" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg transition duration-200 flex items-center gap-2">
+        <i class="fas fa-arrow-left"></i> Volver al Inicio
+      </a>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-8 flex-1">
+    
+    <!-- Intro / Hero -->
+    <section class="mb-10 text-center max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-sm font-semibold mb-4">
+        <i class="fas fa-laptop-code"></i> Espacio Oficial CIECCU
+      </div>
+      <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl mb-4">
+        Nuestras Ediciones del Congreso
+      </h2>
+      <p class="text-lg text-gray-600">
+        Explora los ponentes, ejes temáticos, recursos de docentes colaboradores y galerías de fotos del evento anual que define el rumbo de la educación en Ciencias de la Computación en Uruguay.
+      </p>
+    </section>
+
+    <!-- Selector de Años y Pantallas (Pestañas Principales) -->
+    <div class="flex justify-center mb-10">
+      <div class="bg-white p-1.5 rounded-xl shadow-md border border-gray-150 inline-flex flex-wrap gap-2 justify-center">
+        <button onclick="switchYear('2025')" id="btn-2025" class="px-6 py-2.5 rounded-lg text-gray-600 font-medium transition duration-200 focus:outline-none hover:bg-gray-100">
+          CIECCU 2025
+        </button>
+        <button onclick="switchYear('2026')" id="btn-2026" class="px-6 py-2.5 rounded-lg bg-indigo-600 text-white font-bold shadow-md focus:outline-none transition duration-200">
+          CIECCU 2026
+        </button>
+        <button onclick="switchYear('2027')" id="btn-2027" class="px-6 py-2.5 rounded-lg text-gray-600 font-medium transition duration-200 focus:outline-none">
+          CIECCU 2027 (Proyectado)
+        </button>
+        <div class="w-px bg-gray-250 mx-1 hidden sm:block"></div>
+        <button onclick="switchYear('organizadores')" id="btn-organizadores" class="px-6 py-2.5 rounded-lg text-gray-600 font-medium transition duration-200 focus:outline-none">
+          Comité Organizador
+        </button>
+        <button onclick="switchYear('colaboradores')" id="btn-colaboradores" class="px-6 py-2.5 rounded-lg text-gray-600 font-medium transition duration-200 focus:outline-none">
+          Docentes Colaboradores
+        </button>
+      </div>
+    </div>
+
+    <!-- CONTENIDO: EDICIÓN 2025 -->
+    <div id="panel-2025" class="year-panel hidden">
+      <!-- Navegación Interna 2025 -->
+      <div class="border-b border-gray-200 mb-8 overflow-x-auto hide-scrollbar">
+        <nav class="-mb-px flex space-x-8 justify-center min-w-max px-4">
+          <button onclick="switchSection('2025', 'ponentes')" id="tab-2025-ponentes" class="subtab-btn-2025 py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+            <i class="fas fa-users mr-2"></i>Ponentes
+          </button>
+          <button onclick="switchSection('2025', 'ejes')" id="tab-2025-ejes" class="subtab-btn-2025 py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+            <i class="fas fa-compass mr-2"></i>Ejes Temáticos
+          </button>
+          <button onclick="switchSection('2025', 'invitados')" id="tab-2025-invitados" class="subtab-btn-2025 py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+            <i class="fas fa-award mr-2"></i>Invitados
+          </button>
+          <button onclick="switchSection('2025', 'expositores')" id="tab-2025-expositores" class="subtab-btn-2025 py-4 px-1 border-b-2 border-indigo-600 text-sm font-bold text-indigo-600 focus:outline-none">
+            <i class="fas fa-chalkboard-teacher mr-2"></i>Docentes Expositores
+          </button>
+          <button onclick="switchSection('2025', 'galeria')" id="tab-2025-galeria" class="subtab-btn-2025 py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+            <i class="fas fa-images mr-2"></i>Galería
+          </button>
+        </nav>
+      </div>
+
+      <!-- Sección Ponentes 2025 -->
+      <div id="section-2025-ponentes" class="section-panel-2025 hidden">
+        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Ponentes Destacados CIECCU 2025</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-white rounded-xl shadow-md p-6 card border border-gray-100 flex flex-col items-center text-center">
+            <div class="w-24 h-24 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 text-3xl font-bold mb-4">
+              <i class="fas fa-user-tie"></i>
+            </div>
+            <h4 class="text-xl font-bold text-gray-800">Dra. Claudia de los Santos</h4>
+            <p class="text-indigo-600 text-sm font-medium mb-3">Investigadora en Didáctica de la Computación</p>
+            <p class="text-gray-600 text-sm">Presentó la conferencia plenaria: <em>"Pensamiento Computacional en Educación Primaria y Media: Estrategias Metodológicas Reales"</em>.</p>
+          </div>
+          <div class="bg-white rounded-xl shadow-md p-6 card border border-gray-100 flex flex-col items-center text-center">
+            <div class="w-24 h-24 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 text-3xl font-bold mb-4">
+              <i class="fas fa-user-graduate"></i>
+            </div>
+            <h4 class="text-xl font-bold text-gray-800">Mag. Santiago Vilar</h4>
+            <p class="text-indigo-600 text-sm font-medium mb-3">Especialista en Tecnologías Educativas</p>
+            <p class="text-gray-600 text-sm">Disertó sobre: <em>"La Inteligencia Artificial generativa como asistente del docente: desafíos, sesgos y oportunidades éticas"</em>.</p>
+          </div>
+          <div class="bg-white rounded-xl shadow-md p-6 card border border-gray-100 flex flex-col items-center text-center">
+            <div class="w-24 h-24 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 text-3xl font-bold mb-4">
+              <i class="fas fa-user-shield"></i>
+            </div>
+            <h4 class="text-xl font-bold text-gray-800">Ing. Andrés Rivas</h4>
+            <p class="text-indigo-600 text-sm font-medium mb-3">Consultor en Ciberseguridad Escolar</p>
+            <p class="text-gray-600 text-sm">Dirigió la mesa redonda: <em>"Ciudadanía Digital y Protección de Datos: Construyendo hábitos seguros en la Red desde el aula"</em>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección Ejes 2025 -->
+      <div id="section-2025-ejes" class="section-panel-2025 hidden">
+        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Ejes Temáticos del Congreso 2025</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 card text-center">
+            <div class="text-blue-500 text-4xl mb-4"><i class="fas fa-brain"></i></div>
+            <h4 class="text-lg font-bold text-gray-800 mb-2">Pensamiento Computacional</h4>
+            <p class="text-gray-600 text-sm">Abstracción, descomposición, reconocimiento de patrones y algoritmos aplicados al currículo.</p>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 card text-center">
+            <div class="text-green-500 text-4xl mb-4"><i class="fas fa-robot"></i></div>
+            <h4 class="text-lg font-bold text-gray-800 mb-2">Robótica y Sensores</h4>
+            <p class="text-gray-600 text-sm">Proyectos físicos interactivos utilizando placas controladoras y software educativo.</p>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 card text-center">
+            <div class="text-yellow-500 text-4xl mb-4"><i class="fas fa-shield-alt"></i></div>
+            <h4 class="text-lg font-bold text-gray-800 mb-2">Ciberseguridad y Ética</h4>
+            <p class="text-gray-600 text-sm">Formación de ciudadanos digitales conscientes, protección de identidad y seguridad de datos.</p>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 card text-center">
+            <div class="text-purple-500 text-4xl mb-4"><i class="fas fa-project-diagram"></i></div>
+            <h4 class="text-lg font-bold text-gray-800 mb-2">Didáctica y Evaluación</h4>
+            <p class="text-gray-600 text-sm">Rúbricas de evaluación en proyectos informáticos y metodologías activas de aprendizaje.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección Invitados 2025 -->
+      <div id="section-2025-invitados" class="section-panel-2025 hidden">
+        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Invitados Especiales y Autoridades 2025</h3>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden max-w-3xl mx-auto">
+          <ul class="divide-y divide-gray-100">
+            <li class="p-6 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+              <div class="w-12 h-12 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 text-xl font-bold">AN</div>
+              <div>
+                <h4 class="text-lg font-bold text-gray-800">Representantes del Consejo Directivo Central (CODICEN)</h4>
+                <p class="text-gray-600 text-sm">Acompañaron la sesión inaugural resaltando la importancia del marco curricular.</p>
+              </div>
+            </li>
+            <li class="p-6 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+              <div class="w-12 h-12 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 text-xl font-bold">UD</div>
+              <div>
+                <h4 class="text-lg font-bold text-gray-800">Docentes Académicos de la Universidad de la República (UdelaR)</h4>
+                <p class="text-gray-600 text-sm">Participaron de los paneles de debate sobre la vinculación de informática con el nivel superior.</p>
+              </div>
+            </li>
+            <li class="p-6 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+              <div class="w-12 h-12 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 text-xl font-bold">CE</div>
+              <div>
+                <h4 class="text-lg font-bold text-gray-800">Mentores de Plan Ceibal</h4>
+                <p class="text-gray-600 text-sm">Estuvieron a cargo del stand interactivo de placas micro:bit y recursos didácticos digitales.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sección Expositores 2025 (CARRUSEL DE TARJETAS / SLIDE A DRIVE) -->
+      <div id="section-2025-expositores" class="section-panel-2025">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+          <div>
+            <h3 class="text-2xl font-bold text-gray-800">Presentaciones de Docentes Colaboradores 2025</h3>
+            <p class="text-gray-600 text-sm">Desliza para ver los recursos y presiona el botón para descargarlos directamente.</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="scrollSlider('slider-2025', -1)" class="w-10 h-10 rounded-full bg-white border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition shadow-sm text-gray-600">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button onclick="scrollSlider('slider-2025', 1)" class="w-10 h-10 rounded-full bg-white border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition shadow-sm text-gray-600">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Carrusel Contenedor -->
+        <div id="slider-2025" class="flex gap-6 overflow-x-auto hide-scrollbar scroll-smooth pt-6 pb-8 px-4">
+          <!-- Tarjeta 1 -->
+          <div class="min-w-[280px] md:min-w-[350px] bg-white rounded-xl shadow-md border border-gray-100 p-6 flex flex-col justify-between flex-shrink-0 card">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-2"><i class="fas fa-cogs mr-1"></i> Pensamiento Computacional</span>
+              <h4 class="text-lg font-bold text-gray-800 mb-3">Enfoque Lúdico de Pilas Bloques en el Aula</h4>
+              <p class="text-gray-600 text-sm mb-4">Secuencias didácticas diseñadas para introducir bucles y condicionales en el aula de informática escolar.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/18DwJS0g8mg_4eJ172EIxWOQG4OBwys_O?usp=sharing" target="_blank" class="w-full bg-indigo-600 text-white text-center font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+              <i class="fab fa-google-drive"></i> Descargar Presentación 2025
+            </a>
+          </div>
+          <!-- Tarjeta 2 -->
+          <div class="min-w-[280px] md:min-w-[350px] bg-white rounded-xl shadow-md border border-gray-100 p-6 flex flex-col justify-between flex-shrink-0 card">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-2"><i class="fas fa-robot mr-1"></i> Robótica Educativa</span>
+              <h4 class="text-lg font-bold text-gray-800 mb-3">Automatización y Sensores con Placas micro:bit</h4>
+              <p class="text-gray-600 text-sm mb-4">Proyectos prácticos de control de temperatura y luminosidad diseñados con lógica de programación de bloques.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/18DwJS0g8mg_4eJ172EIxWOQG4OBwys_O?usp=sharing" target="_blank" class="w-full bg-indigo-600 text-white text-center font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+              <i class="fab fa-google-drive"></i> Descargar Presentación 2025
+            </a>
+          </div>
+          <!-- Tarjeta 3 -->
+          <div class="min-w-[280px] md:min-w-[350px] bg-white rounded-xl shadow-md border border-gray-100 p-6 flex flex-col justify-between flex-shrink-0 card">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-2"><i class="fas fa-shield-alt mr-1"></i> Ciberseguridad</span>
+              <h4 class="text-lg font-bold text-gray-800 mb-3">Huella Digital en Adolescentes y Talleres de Prevención</h4>
+              <p class="text-gray-600 text-sm mb-4">Materiales didácticos y encuestas interactivas de diagnóstico sobre privacidad digital en redes sociales escolares.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/18DwJS0g8mg_4eJ172EIxWOQG4OBwys_O?usp=sharing" target="_blank" class="w-full bg-indigo-600 text-white text-center font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+              <i class="fab fa-google-drive"></i> Descargar Presentación 2025
+            </a>
+          </div>
+          <!-- Tarjeta 4 -->
+          <div class="min-w-[280px] md:min-w-[350px] bg-white rounded-xl shadow-md border border-gray-100 p-6 flex flex-col justify-between flex-shrink-0 card">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-2"><i class="fas fa-project-diagram mr-1"></i> Algoritmia</span>
+              <h4 class="text-lg font-bold text-gray-800 mb-3">Modelado de Sistemas con PSeInt en el Nivel Medio</h4>
+              <p class="text-gray-600 text-sm mb-4">Planificaciones y ejemplos de algoritmos sencillos para resolver problemas de lógica matemática de forma guiada.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/18DwJS0g8mg_4eJ172EIxWOQG4OBwys_O?usp=sharing" target="_blank" class="w-full bg-indigo-600 text-white text-center font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+              <i class="fab fa-google-drive"></i> Descargar Presentación 2025
+            </a>
+          </div>
+          <!-- Tarjeta 5 (Ver Más) -->
+          <div class="min-w-[280px] md:min-w-[350px] bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl shadow-md border border-indigo-150 p-6 flex flex-col justify-between flex-shrink-0 card">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-2"><i class="fas fa-folder-open mr-1"></i> Carpeta Completa</span>
+              <h4 class="text-lg font-bold text-gray-800 mb-3">Más Presentaciones y Recursos 2025</h4>
+              <p class="text-gray-600 text-sm mb-4">Existen múltiples trabajos y planificaciones adicionales de docentes colaboradores. Explora la carpeta pública completa en Drive.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/18DwJS0g8mg_4eJ172EIxWOQG4OBwys_O?usp=sharing" target="_blank" class="w-full bg-indigo-600 text-white text-center font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+              <i class="fab fa-google-drive"></i> Explorar Drive Completo 2025
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección Galería 2025 -->
+      <div id="section-2025-galeria" class="section-panel-2025 hidden">
+        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Registro Fotográfico del Evento 2025</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div class="bg-gray-200 aspect-video rounded-xl overflow-hidden shadow-sm flex flex-col items-center justify-center border border-gray-300 text-gray-500 relative group cursor-pointer">
+            <i class="fas fa-image text-4xl mb-2"></i>
+            <span class="text-sm font-semibold">Conferencia Plenaria 2025</span>
+            <div class="absolute inset-0 bg-indigo-900 bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+              <span class="text-white font-bold"><i class="fas fa-eye mr-2"></i>Ver Imagen</span>
+            </div>
+          </div>
+          <div class="bg-gray-200 aspect-video rounded-xl overflow-hidden shadow-sm flex flex-col items-center justify-center border border-gray-300 text-gray-500 relative group cursor-pointer">
+            <i class="fas fa-image text-4xl mb-2"></i>
+            <span class="text-sm font-semibold">Talleres de Programación Práctica</span>
+            <div class="absolute inset-0 bg-indigo-900 bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+              <span class="text-white font-bold"><i class="fas fa-eye mr-2"></i>Ver Imagen</span>
+            </div>
+          </div>
+          <div class="bg-gray-200 aspect-video rounded-xl overflow-hidden shadow-sm flex flex-col items-center justify-center border border-gray-300 text-gray-500 relative group cursor-pointer">
+            <i class="fas fa-image text-4xl mb-2"></i>
+            <span class="text-sm font-semibold">Mesa Redonda sobre la ANEP</span>
+            <div class="absolute inset-0 bg-indigo-900 bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+              <span class="text-white font-bold"><i class="fas fa-eye mr-2"></i>Ver Imagen</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- CONTENIDO: EDICIÓN 2026 -->
+    <div id="panel-2026" class="year-panel">
+      <!-- Banner Logo Oficial 2026 -->
+      <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 mb-8 flex flex-col md:flex-row items-center justify-around gap-6 text-center md:text-left">
+        <div class="max-w-md">
+          <div class="inline-block bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs px-3 py-1 rounded-full font-bold mb-3">LOGO OFICIAL CIECCU 2026</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-2">CIECCU 2026</h3>
+          <p class="text-gray-600">Congreso llevado a cabo de forma exitosa los días 26 y 27 de marzo de 2026 en el Auditorio Mario Benedetti de la Torre de las Telecomunicaciones, Montevideo.</p>
+        </div>
+        <div class="flex flex-col sm:flex-row items-center gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
+          <img src="img/cieccu_logo_vertical.png" alt="CIECCU Logo Vertical" class="h-44 object-contain">
+          <img src="img/cieccu_logo_horizontal.png" alt="CIECCU Logo Horizontal" class="h-28 object-contain">
+        </div>
+      </div>
+
+      <!-- Navegación Interna 2026 -->
+      <div class="border-b border-gray-200 mb-8 overflow-x-auto hide-scrollbar">
+        <nav class="-mb-px flex space-x-8 justify-center min-w-max px-4">
+          <button onclick="switchSection('2026', 'ponentes')" id="tab-2026-ponentes" class="subtab-btn-2026 py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+            <i class="fas fa-users mr-2"></i>Ponentes
+          </button>
+          <button onclick="switchSection('2026', 'ejes')" id="tab-2026-ejes" class="subtab-btn-2026 py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+            <i class="fas fa-compass mr-2"></i>Ejes Temáticos
+          </button>
+          <button onclick="switchSection('2026', 'invitados')" id="tab-2026-invitados" class="subtab-btn-2026 py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+            <i class="fas fa-award mr-2"></i>Invitados
+          </button>
+          <button onclick="switchSection('2026', 'expositores')" id="tab-2026-expositores" class="subtab-btn-2026 py-4 px-1 border-b-2 border-indigo-600 text-sm font-bold text-indigo-600 focus:outline-none">
+            <i class="fas fa-chalkboard-teacher mr-2"></i>Docentes Expositores
+          </button>
+          <button onclick="switchSection('2026', 'galeria')" id="tab-2026-galeria" class="subtab-btn-2026 py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 font-semibold focus:outline-none">
+            <i class="fas fa-images mr-2"></i>Galería
+          </button>
+        </nav>
+      </div>
+
+      <!-- Sección Ponentes 2026 -->
+      <div id="section-2026-ponentes" class="section-panel-2026 hidden">
+        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Expositores Expertos CIECCU 2026</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Ponente 1 -->
+          <div class="bg-white rounded-xl shadow-md p-6 card border border-gray-100 flex flex-col items-center text-center">
+            <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 text-3xl mb-4">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h4 class="text-lg font-bold text-gray-800">Aníbal Gonda</h4>
+            <p class="text-indigo-600 text-sm font-semibold mb-2">Representante de CUTI</p>
+            <p class="text-gray-600 text-sm">Disertó en la conferencia de apertura: <em>"Inteligencia Artificial"</em>, analizando el impacto de los algoritmos inteligentes en el sector productivo y académico.</p>
+          </div>
+          <!-- Ponente 2 -->
+          <div class="bg-white rounded-xl shadow-md p-6 card border border-gray-100 flex flex-col items-center text-center">
+            <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 text-3xl mb-4">
+              <i class="fas fa-shield-halved"></i>
+            </div>
+            <h4 class="text-lg font-bold text-gray-800">Claudio López</h4>
+            <p class="text-indigo-600 text-sm font-semibold mb-2">Docente de Universidad de Montevideo (UM)</p>
+            <p class="text-gray-600 text-sm">Expuso en la sesión de la mañana: <em>"Ciberseguridad"</em>, abordando las directrices clave para la prevención de riesgos y protección de datos en escuelas.</p>
+          </div>
+          <!-- Ponente 3 -->
+          <div class="bg-white rounded-xl shadow-md p-6 card border border-gray-100 flex flex-col items-center text-center">
+            <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 text-3xl mb-4">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <h4 class="text-lg font-bold text-gray-800">Alexia Aurrecochea</h4>
+            <p class="text-indigo-600 text-sm font-semibold mb-2">Estudiante de U Católica (UCUDAL)</p>
+            <p class="text-gray-600 text-sm">Presentó en la sesión vespertina: <em>"IA"</em>, mostrando una perspectiva aplicada de proyectos prácticos impulsados por jóvenes en educación superior.</p>
+          </div>
+          <!-- Ponente 4 -->
+          <div class="bg-white rounded-xl shadow-md p-6 card border border-gray-100 flex flex-col items-center text-center">
+            <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 text-3xl mb-4">
+              <i class="fas fa-robot"></i>
+            </div>
+            <h4 class="text-lg font-bold text-gray-800">André Kelbouscas</h4>
+            <p class="text-indigo-600 text-sm font-semibold mb-2">Docente de Universidad Tecnológica (UTEC)</p>
+            <p class="text-gray-600 text-sm">Expuso en el bloque de cierre: <em>"Robótica"</em>, describiendo metodologías activas y aplicaciones de automatización y hardware libre.</p>
+          </div>
+          <!-- Ponente 5 -->
+          <div class="bg-white rounded-xl shadow-md p-6 card border border-gray-100 flex flex-col items-center text-center">
+            <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 text-3xl mb-4">
+              <i class="fas fa-terminal"></i>
+            </div>
+            <h4 class="text-lg font-bold text-gray-800">S. Hernández y D. Daluz</h4>
+            <p class="text-indigo-600 text-sm font-semibold mb-2">Equipo Técnico Docente de EDyTIC</p>
+            <p class="text-gray-600 text-sm">Presentaron la ponencia especial: <em>"App web ética de IA en Educación"</em>, mostrando una herramienta interactiva local para el aula.</p>
+          </div>
+          <!-- Ponente 6 -->
+          <div class="bg-white rounded-xl shadow-md p-6 card border border-gray-100 flex flex-col items-center text-center">
+            <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 text-3xl mb-4">
+              <i class="fas fa-users-rectangle"></i>
+            </div>
+            <h4 class="text-lg font-bold text-gray-800">A. Borges y V. Panella</h4>
+            <p class="text-indigo-600 text-sm font-semibold mb-2">Equipo de Contenidistas EDyTIC</p>
+            <p class="text-gray-600 text-sm">Expusieron la: <em>"Presentación de equipo EDyTIC"</em>, detallando las secuencias didácticas y el acompañamiento docente proyectado.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección Ejes 2026 -->
+      <div id="section-2026-ejes" class="section-panel-2026 hidden">
+        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Ejes Temáticos del Congreso 2026</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 card text-center">
+            <div class="text-blue-500 text-4xl mb-4"><i class="fas fa-laptop-code"></i></div>
+            <h4 class="text-lg font-bold text-gray-800 mb-2">Innovación Curricular</h4>
+            <p class="text-gray-600 text-sm">Integración pedagógica y desarrollo de repositorios centralizados de recursos de Ciencias de la Computación.</p>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 card text-center">
+            <div class="text-green-500 text-4xl mb-4"><i class="fas fa-project-diagram"></i></div>
+            <h4 class="text-lg font-bold text-gray-800 mb-2">Didáctica y Aulas Híbridas</h4>
+            <p class="text-gray-600 text-sm">Experiencias y metodologías de educación de informática a distancia, talleres híbridos y portales.</p>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 card text-center">
+            <div class="text-yellow-500 text-4xl mb-4"><i class="fas fa-microchip"></i></div>
+            <h4 class="text-lg font-bold text-gray-800 mb-2">Inteligencia Artificial</h4>
+            <p class="text-gray-600 text-sm">Integración ética del aprendizaje automático, LLMs y sistemas inteligentes como recurso escolar.</p>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 card text-center">
+            <div class="text-purple-500 text-4xl mb-4"><i class="fas fa-users-cog"></i></div>
+            <h4 class="text-lg font-bold text-gray-800 mb-2">Colaboración Profesional</h4>
+            <p class="text-gray-600 text-sm">El rol crítico de los docentes colaboradores, inspectores de informática y coordinadores.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección Invitados 2026 -->
+      <div id="section-2026-invitados" class="section-panel-2026 hidden">
+        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Invitados Especiales e Instituciones Participantes 2026</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          <!-- UTEC -->
+          <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm text-center flex flex-col justify-between card">
+            <div>
+              <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold mx-auto mb-3">UT</div>
+              <h4 class="font-bold text-gray-800 text-base">Universidad Tecnológica</h4>
+            </div>
+            <p class="text-xs text-gray-500 mt-2">Participó activamente aportando ponentes en el eje de Robótica y automatización educativa.</p>
+          </div>
+          <!-- UM -->
+          <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm text-center flex flex-col justify-between card">
+            <div>
+              <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold mx-auto mb-3">UM</div>
+              <h4 class="font-bold text-gray-800 text-base">Universidad de Montevideo</h4>
+            </div>
+            <p class="text-xs text-gray-500 mt-2">Aportó ponentes y marcos teóricos clave en la mesa temática de ciberseguridad escolar.</p>
+          </div>
+          <!-- CUTI -->
+          <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm text-center flex flex-col justify-between card">
+            <div>
+              <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold mx-auto mb-3">CU</div>
+              <h4 class="font-bold text-gray-800 text-base">Cámara Uruguaya de TI</h4>
+            </div>
+            <p class="text-xs text-gray-500 mt-2">Disertó sobre tendencias y demandas en Inteligencia Artificial en el mercado nacional.</p>
+          </div>
+          <!-- U Católica -->
+          <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm text-center flex flex-col justify-between card">
+            <div>
+              <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold mx-auto mb-3">UC</div>
+              <h4 class="font-bold text-gray-800 text-base">Universidad Católica</h4>
+            </div>
+            <p class="text-xs text-gray-500 mt-2">Participó con ponentes en el eje de inteligencia artificial aplicada y aprendizaje estudiantil.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección Expositores 2026 (CARRUSEL DE TARJETAS / SLIDE A DRIVE) -->
+      <div id="section-2026-expositores" class="section-panel-2026">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+          <div>
+            <h3 class="text-2xl font-bold text-gray-800">Presentaciones de Docentes Colaboradores 2026</h3>
+            <p class="text-gray-600 text-sm">Desliza para ver los recursos del último congreso y accede directamente a Drive.</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="scrollSlider('slider-2026', -1)" class="w-10 h-10 rounded-full bg-white border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition shadow-sm text-gray-600">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button onclick="scrollSlider('slider-2026', 1)" class="w-10 h-10 rounded-full bg-white border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition shadow-sm text-gray-600">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Carrusel Contenedor -->
+        <div id="slider-2026" class="flex gap-6 overflow-x-auto hide-scrollbar scroll-smooth pt-6 pb-8 px-4">
+          <!-- Tarjeta 1 -->
+          <div class="min-w-[280px] md:min-w-[350px] bg-white rounded-xl shadow-md border border-gray-100 p-6 flex flex-col justify-between flex-shrink-0 card">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-2"><i class="fas fa-microchip mr-1"></i> Pensamiento Computacional</span>
+              <h4 class="text-lg font-bold text-gray-800 mb-3">"Puentes lógicos"</h4>
+              <p class="text-indigo-600 text-xs font-bold mb-2">Docentes: A. Espiga, L. Villalba</p>
+              <p class="text-gray-600 text-sm mb-4">Propuesta práctica sobre compuertas lógicas y diseño de circuitos aplicados al aula de ciclo básico.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/1BWJxwKMQ4waFoJH3Pm4G2ol_Jj-wjt-b?usp=sharing" target="_blank" class="w-full bg-indigo-600 text-white text-center font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+              <i class="fab fa-google-drive"></i> Descargar Recursos 2026
+            </a>
+          </div>
+          <!-- Tarjeta 2 -->
+          <div class="min-w-[280px] md:min-w-[350px] bg-white rounded-xl shadow-md border border-gray-100 p-6 flex flex-col justify-between flex-shrink-0 card">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-2"><i class="fas fa-heart mr-1"></i> Didáctica e Inclusión</span>
+              <h4 class="text-lg font-bold text-gray-800 mb-3">"Pensando en el otro"</h4>
+              <p class="text-indigo-600 text-xs font-bold mb-2">Docentes: C. Linfa, F. Acosta</p>
+              <p class="text-gray-600 text-sm mb-4">Experiencia integradora que vincula habilidades socioemocionales, empatía y pensamiento algorítmico.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/1BWJxwKMQ4waFoJH3Pm4G2ol_Jj-wjt-b?usp=sharing" target="_blank" class="w-full bg-indigo-600 text-white text-center font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+              <i class="fab fa-google-drive"></i> Descargar Recursos 2026
+            </a>
+          </div>
+          <!-- Tarjeta 3 -->
+          <div class="min-w-[280px] md:min-w-[350px] bg-white rounded-xl shadow-md border border-gray-100 p-6 flex flex-col justify-between flex-shrink-0 card">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-2"><i class="fas fa-seedling mr-1"></i> Robótica</span>
+              <h4 class="text-lg font-bold text-gray-800 mb-3">"Agrobot"</h4>
+              <p class="text-indigo-600 text-xs font-bold mb-2">Docente: A. Morales</p>
+              <p class="text-gray-600 text-sm mb-4">Proyecto de automatización de cultivos a pequeña escala utilizando placas programables de código abierto.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/1BWJxwKMQ4waFoJH3Pm4G2ol_Jj-wjt-b?usp=sharing" target="_blank" class="w-full bg-indigo-600 text-white text-center font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+              <i class="fab fa-google-drive"></i> Descargar Recursos 2026
+            </a>
+          </div>
+          <!-- Tarjeta 4 -->
+          <div class="min-w-[280px] md:min-w-[350px] bg-white rounded-xl shadow-md border border-gray-100 p-6 flex flex-col justify-between flex-shrink-0 card">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-2"><i class="fas fa-wheelchair mr-1"></i> Diversidad y DUA</span>
+              <h4 class="text-lg font-bold text-gray-800 mb-3">"Robótica accesible y DUA"</h4>
+              <p class="text-indigo-600 text-xs font-bold mb-2">Docente: M. Bentancor</p>
+              <p class="text-gray-600 text-sm mb-4">Adaptaciones curriculares y físicas mediante robótica para garantizar el Diseño Universal de Aprendizaje.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/1BWJxwKMQ4waFoJH3Pm4G2ol_Jj-wjt-b?usp=sharing" target="_blank" class="w-full bg-indigo-600 text-white text-center font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+              <i class="fab fa-google-drive"></i> Descargar Recursos 2026
+            </a>
+          </div>
+          <!-- Tarjeta 5 -->
+          <div class="min-w-[280px] md:min-w-[350px] bg-white rounded-xl shadow-md border border-gray-100 p-6 flex flex-col justify-between flex-shrink-0 card">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-2"><i class="fas fa-planet-ringed mr-1"></i> Exploración Espacial</span>
+              <h4 class="text-lg font-bold text-gray-800 mb-3">"Microbit y Marte"</h4>
+              <p class="text-indigo-600 text-xs font-bold mb-2">Docentes: K. Reynoso, B. Peculio</p>
+              <p class="text-gray-600 text-sm mb-4">Simulación didáctica de recolección de datos y sensores ambientales emulando la exploración del planeta Marte.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/1BWJxwKMQ4waFoJH3Pm4G2ol_Jj-wjt-b?usp=sharing" target="_blank" class="w-full bg-indigo-600 text-white text-center font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+              <i class="fab fa-google-drive"></i> Descargar Recursos 2026
+            </a>
+          </div>
+          <!-- Tarjeta 6 -->
+          <div class="min-w-[280px] md:min-w-[350px] bg-white rounded-xl shadow-md border border-gray-100 p-6 flex flex-col justify-between flex-shrink-0 card">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-2"><i class="fas fa-mask mr-1"></i> Interdisciplinar</span>
+              <h4 class="text-lg font-bold text-gray-800 mb-3">"IA y Brindis por Pierrot"</h4>
+              <p class="text-indigo-600 text-xs font-bold mb-2">Docente: P. de los Campos</p>
+              <p class="text-gray-600 text-sm mb-4">Interesante integración entre música, literatura uruguaya y entrenamiento de modelos de IA generativa.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/1BWJxwKMQ4waFoJH3Pm4G2ol_Jj-wjt-b?usp=sharing" target="_blank" class="w-full bg-indigo-600 text-white text-center font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+              <i class="fab fa-google-drive"></i> Descargar Recursos 2026
+            </a>
+          </div>
+          <!-- Tarjeta 7 (Ver Más) -->
+          <div class="min-w-[280px] md:min-w-[350px] bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl shadow-md border border-indigo-150 p-6 flex flex-col justify-between flex-shrink-0 card">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-2"><i class="fas fa-folder-open mr-1"></i> Carpeta Completa</span>
+              <h4 class="text-lg font-bold text-gray-800 mb-3">Más Presentaciones y Recursos 2026</h4>
+              <p class="text-gray-600 text-sm mb-4">Existen múltiples trabajos adicionales, secuencias didácticas y ponencias de docentes colaboradores. Explora el Drive completo.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/1BWJxwKMQ4waFoJH3Pm4G2ol_Jj-wjt-b?usp=sharing" target="_blank" class="w-full bg-indigo-600 text-white text-center font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+              <i class="fab fa-google-drive"></i> Explorar Drive Completo 2026
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección Galería 2026 -->
+      <div id="section-2026-galeria" class="section-panel-2026 hidden">
+        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Registro Fotográfico del Evento 2026</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div class="bg-gray-200 aspect-video rounded-xl overflow-hidden shadow-sm flex flex-col items-center justify-center border border-gray-300 text-gray-500 relative group cursor-pointer">
+            <i class="fas fa-image text-4xl mb-2"></i>
+            <span class="text-sm font-semibold">Auditorio Mario Benedetti - Inauguración</span>
+            <div class="absolute inset-0 bg-indigo-900 bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+              <span class="text-white font-bold"><i class="fas fa-eye mr-2"></i>Ver Imagen</span>
+            </div>
+          </div>
+          <div class="bg-gray-200 aspect-video rounded-xl overflow-hidden shadow-sm flex flex-col items-center justify-center border border-gray-300 text-gray-500 relative group cursor-pointer">
+            <i class="fas fa-image text-4xl mb-2"></i>
+            <span class="text-sm font-semibold">Stands y Muestras de Docentes</span>
+            <div class="absolute inset-0 bg-indigo-900 bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+              <span class="text-white font-bold"><i class="fas fa-eye mr-2"></i>Ver Imagen</span>
+            </div>
+          </div>
+          <div class="bg-gray-200 aspect-video rounded-xl overflow-hidden shadow-sm flex flex-col items-center justify-center border border-gray-300 text-gray-500 relative group cursor-pointer">
+            <i class="fas fa-image text-4xl mb-2"></i>
+            <span class="text-sm font-semibold">Entrega de Certificados de Acreditación</span>
+            <div class="absolute inset-0 bg-indigo-900 bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+              <span class="text-white font-bold"><i class="fas fa-eye mr-2"></i>Ver Imagen</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- CONTENIDO: EDICIÓN 2027 (PROYECCIÓN) -->
+    <div id="panel-2027" class="year-panel hidden">
+      <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 text-center max-w-2xl mx-auto py-12">
+        <div class="w-20 h-20 bg-indigo-50 border border-indigo-100 rounded-full flex items-center justify-center text-indigo-600 text-3xl mx-auto mb-6">
+          <i class="fas fa-calendar-plus"></i>
+        </div>
+        <h3 class="text-3xl font-extrabold text-gray-900 mb-3">CIECCU 2027</h3>
+        <p class="text-lg text-indigo-600 font-bold mb-4">Próximamente • En Definición</p>
+        <p class="text-gray-600 mb-8 leading-relaxed">
+          La tercera edición del Congreso de Innovación Educativa de Ciencias de la Computación de Uruguay se encuentra actualmente en fase de planificación y diseño de agenda. Estamos definiendo las fechas de realización, sede y la convocatoria formal para los docentes expositores.
+        </p>
+        
+        <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100 text-left mb-6">
+          <h4 class="font-bold text-indigo-900 mb-2 flex items-center gap-2">
+            <i class="fas fa-lightbulb"></i> ¿Quieres proponer un eje temático o participar?
+          </h4>
+          <p class="text-indigo-700 text-sm">
+            Puedes ponerte en contacto con el equipo de inspectores de informática y contenidistas de EDyTIC a través de nuestro canal de sugerencias oficial para proponer charlas, talleres o postular tu sede educativa.
+          </p>
+        </div>
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScTTw9D5QBXqV3YUqXLkyZTdq5P54fJAXt8XecAZwJfevbRlQ/viewform?usp=dialog" target="_blank" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-lg shadow transition duration-200">
+          <i class="fas fa-paper-plane"></i> Enviar Sugerencia para 2027
+        </a>
+      </div>
+    </div>
+
+    <!-- CONTENIDO: COMITÉ ORGANIZADOR -->
+    <div id="panel-organizadores" class="year-panel hidden">
+      <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 max-w-4xl mx-auto py-10">
+        <div class="text-center mb-8">
+          <div class="w-16 h-16 bg-indigo-50 border border-indigo-100 rounded-full flex items-center justify-center text-indigo-600 text-2xl mx-auto mb-4">
+            <i class="fas fa-sitemap"></i>
+          </div>
+          <h3 class="text-3xl font-extrabold text-gray-900 mb-2">Comité Organizador y Autoridades</h3>
+          <p class="text-gray-600 max-w-2xl mx-auto">Las autoridades de la Dirección General de Educación Secundaria y el equipo de EDyTIC que coordinan y dirigen las actividades de CIECCU.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Inspectora 1 -->
+          <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-150 hover:bg-gray-100 transition">
+            <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xl"><i class="fas fa-user-tie"></i></div>
+            <div>
+              <h4 class="font-bold text-gray-800 text-lg">Prof. Alexandra Suárez</h4>
+              <p class="text-sm text-gray-500 font-medium">Inspectora de Informática DGES • ANEP</p>
+            </div>
+          </div>
+          <!-- Inspectora 2 -->
+          <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-150 hover:bg-gray-100 transition">
+            <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xl"><i class="fas fa-user-tie"></i></div>
+            <div>
+              <h4 class="font-bold text-gray-800 text-lg">Prof. Miriam Buero</h4>
+              <p class="text-sm text-gray-500 font-medium">Inspectora de Informática DGES • ANEP</p>
+            </div>
+          </div>
+          <!-- Contenidista 1 -->
+          <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-150 hover:bg-gray-100 transition">
+            <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xl"><i class="fas fa-user-edit"></i></div>
+            <div>
+              <h4 class="font-bold text-gray-800 text-lg">Prof. Gustavo Farías</h4>
+              <p class="text-sm text-gray-500 font-medium">Contenidista de Informática DGES • EDyTIC</p>
+            </div>
+          </div>
+          <!-- Contenidista 2 -->
+          <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-150 hover:bg-gray-100 transition">
+            <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xl"><i class="fas fa-user-edit"></i></div>
+            <div>
+              <h4 class="font-bold text-gray-800 text-lg">Prof. Santiago Hernández</h4>
+              <p class="text-sm text-gray-500 font-medium">Contenidista de Informática DGES • EDyTIC</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENIDO: COLABORADORES -->
+    <div id="panel-colaboradores" class="year-panel hidden">
+      <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 max-w-4xl mx-auto py-10">
+        <div class="text-center mb-8">
+          <div class="w-16 h-16 bg-indigo-50 border border-indigo-100 rounded-full flex items-center justify-center text-indigo-600 text-2xl mx-auto mb-4">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h3 class="text-3xl font-extrabold text-gray-900 mb-2">Docentes Colaboradores</h3>
+          <p class="text-gray-600 max-w-2xl mx-auto">Agradecemos el valioso apoyo brindado por los docentes colaboradores que trabajaron activamente en el soporte y organización del congreso.</p>
+        </div>
+
+        <!-- Colaboradores 2026 -->
+        <div class="mb-10">
+          <h4 class="text-xl font-bold text-gray-800 border-b pb-2 mb-6 flex items-center gap-2">
+            <i class="fas fa-calendar-days text-indigo-600"></i> Edición 2026
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Sebastián Apólito -->
+            <div class="p-4 bg-gray-50 rounded-xl border border-gray-150 hover:border-indigo-300 transition duration-200 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-xl"><i class="fas fa-user-check"></i></div>
+              <div>
+                <h4 class="font-bold text-gray-800 text-lg">Sebastián Apólito</h4>
+                <p class="text-sm text-gray-500 font-medium">Soporte técnico, acreditación y logística</p>
+              </div>
+            </div>
+            <!-- Diego Daluz -->
+            <div class="p-4 bg-gray-50 rounded-xl border border-gray-150 hover:border-indigo-300 transition duration-200 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-xl"><i class="fas fa-user-check"></i></div>
+              <div>
+                <h4 class="font-bold text-gray-800 text-lg">Diego Daluz</h4>
+                <p class="text-sm text-gray-500 font-medium">Soporte técnico y transmisión por streaming</p>
+              </div>
+            </div>
+            <!-- Pablo Acosta -->
+            <div class="p-4 bg-gray-50 rounded-xl border border-gray-150 hover:border-indigo-300 transition duration-200 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-xl"><i class="fas fa-user-check"></i></div>
+              <div>
+                <h4 class="font-bold text-gray-800 text-lg">Pablo Acosta</h4>
+                <p class="text-sm text-gray-500 font-medium">Soporte técnico y logística en sala</p>
+              </div>
+            </div>
+            <!-- Marcelo Marcediño -->
+            <div class="p-4 bg-gray-50 rounded-xl border border-gray-150 hover:border-indigo-300 transition duration-200 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-xl"><i class="fas fa-user-check"></i></div>
+              <div>
+                <h4 class="font-bold text-gray-800 text-lg">Marcelo Marcediño</h4>
+                <p class="text-sm text-gray-500 font-medium">Soporte técnico y transmisión por streaming</p>
+              </div>
+            </div>
+            <!-- Marcela Rodríguez -->
+            <div class="p-4 bg-gray-50 rounded-xl border border-gray-150 hover:border-indigo-300 transition duration-200 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-xl"><i class="fas fa-user-check"></i></div>
+              <div>
+                <h4 class="font-bold text-gray-800 text-lg">Marcela Rodríguez</h4>
+                <p class="text-sm text-gray-500 font-medium">Acreditaciones y logística en sala</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colaboradores 2025 -->
+        <div class="mb-10">
+          <h4 class="text-xl font-bold text-gray-800 border-b pb-2 mb-6 flex items-center gap-2">
+            <i class="fas fa-calendar-days text-indigo-600"></i> Edición 2025
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Diego Daluz -->
+            <div class="p-4 bg-gray-50 rounded-xl border border-gray-150 hover:border-indigo-300 transition duration-200 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-xl"><i class="fas fa-user-check"></i></div>
+              <div>
+                <h4 class="font-bold text-gray-800 text-lg">Diego Daluz</h4>
+                <p class="text-sm text-gray-500 font-medium">Soporte técnico y transmisión por streaming</p>
+              </div>
+            </div>
+            <!-- Slot placeholder/añadir más -->
+            <div class="p-4 bg-indigo-50 border border-dashed border-indigo-300 rounded-xl flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-500 text-xl"><i class="fas fa-user-plus"></i></div>
+              <div>
+                <h4 class="font-bold text-indigo-850">Otros Colaboradores...</h4>
+                <p class="text-sm text-indigo-600 font-medium">Lista abierta a incorporaciones</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-indigo-50 border border-indigo-150 p-5 rounded-xl text-left">
+          <h4 class="font-bold text-indigo-900 mb-1 flex items-center gap-2 text-sm">
+            <i class="fas fa-info-circle"></i> ¿Falta algún colaborador o deseas reportar una corrección?
+          </h4>
+          <p class="text-indigo-700 text-xs leading-relaxed">
+            Sabemos que hay más docentes que han prestado su valiosa ayuda. Si colaboraste en alguna edición o deseas reportar a alguien omitido, por favor utiliza nuestro formulario oficial de sugerencias o contáctanos para agregarlo de inmediato.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-6 mt-12">
+    <div class="container mx-auto px-4 text-center">
+      <p>Plataforma para profesores – DGES ANEP</p>
+      <p class="mt-2 text-gray-400">
+        Obra bajo licencia CC BY 4.0 • Congreso CIECCU • Creada por Santiago Hernández
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Variables de Estado de Años y Subpestañas
+    let activeYear = '2026';
+    let activeSections = {
+      '2025': 'expositores',
+      '2026': 'expositores'
+    };
+
+    window.onload = function() {
+      // Iniciar en el panel por defecto
+      switchYear(activeYear);
+    };
+
+    function switchYear(year) {
+      activeYear = year;
+      const tabs = ['2025', '2026', '2027', 'organizadores', 'colaboradores'];
+      
+      // Actualizar botones de pestañas
+      tabs.forEach(y => {
+        const btn = document.getElementById('btn-' + y);
+        if (btn) {
+          if (y === year) {
+            btn.className = "px-6 py-2.5 rounded-lg bg-indigo-600 text-white font-bold shadow-md focus:outline-none transition duration-200";
+          } else {
+            btn.className = "px-6 py-2.5 rounded-lg text-gray-600 font-medium hover:bg-gray-100 focus:outline-none transition duration-200";
+          }
+        }
+      });
+
+      // Mostrar/ocultar paneles principales
+      tabs.forEach(y => {
+        const panel = document.getElementById('panel-' + y);
+        if (panel) {
+          if (y === year) {
+            panel.classList.remove('hidden');
+          } else {
+            panel.classList.add('hidden');
+          }
+        }
+      });
+
+      // Si cambiamos a un año con subsecciones (2025 o 2026), activar su sección previa
+      if (year === '2025' || year === '2026') {
+        switchSection(year, activeSections[year]);
+      }
+    }
+
+    function switchSection(year, section) {
+      activeSections[year] = section;
+      
+      // Buscar todos los botones de subpestañas de este año específico
+      const buttons = document.querySelectorAll('.subtab-btn-' + year);
+      buttons.forEach(btn => {
+        if (btn.id === `tab-${year}-${section}`) {
+          btn.className = `subtab-btn-${year} py-4 px-1 border-b-2 border-indigo-600 text-sm font-bold text-indigo-600 focus:outline-none transition duration-150`;
+        } else {
+          btn.className = `subtab-btn-${year} py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none transition duration-150`;
+        }
+      });
+
+      // Mostrar/ocultar los paneles de sección de este año
+      const panels = ['ponentes', 'ejes', 'invitados', 'expositores', 'galeria'];
+      panels.forEach(p => {
+        const panelEl = document.getElementById(`section-${year}-${p}`);
+        if (panelEl) {
+          if (p === section) {
+            panelEl.classList.remove('hidden');
+          } else {
+            panelEl.classList.add('hidden');
+          }
+        }
+      });
+    }
+
+    // Funciones del Carrusel/Deslizador
+    function scrollSlider(sliderId, direction) {
+      const slider = document.getElementById(sliderId);
+      const cardWidth = slider.querySelector('.card').offsetWidth + 24; // ancho de tarjeta + gap
+      slider.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
