@@ -1,8 +1,10 @@
 const SPREADSHEET_ID = '1g-WEMG1UmNolDxzNOUvy1DiBYMijWPuxRLhJ7Fq1ThY';
 const VISITS_SHEET = 'Contador_visitas';
 const REVIEWS_SHEET = 'Resenas_recursos';
+const RESOURCE_VISITS_SHEET = 'Visitas_recursos';
 const VISITS_HEADERS = ['Indicador', 'Valor'];
 const REVIEWS_HEADERS = ['Fecha UTC', 'Id recurso', 'Recurso', 'URL', 'Puntuacion', 'Comentario'];
+const RESOURCE_VISITS_HEADERS = ['Id recurso', 'URL', 'Recurso', 'Clics'];
 
 function setup() {
   const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
@@ -11,6 +13,7 @@ function setup() {
     visits.getRange(2, 1, 1, 2).setValues([['Visitas totales', 0]]);
   }
   getOrCreateSheet_(spreadsheet, REVIEWS_SHEET, REVIEWS_HEADERS);
+  getOrCreateSheet_(spreadsheet, RESOURCE_VISITS_SHEET, RESOURCE_VISITS_HEADERS);
 }
 
 function doGet(e) {
@@ -27,6 +30,8 @@ function doGet(e) {
       result = { ok: true, totalVisits: readVisitCount_() };
     } else if (action === 'reviews') {
       result = readReviews_(e.parameter.resourceId);
+    } else if (action === 'resourceStats') {
+      result = readResourceStats_();
     } else {
       throw new Error('Accion no valida.');
     }
@@ -58,6 +63,8 @@ function doPost(e) {
       result = { totalVisits: incrementVisitCount_() };
     } else if (payload.action === 'review') {
       result = { review: addReview_(payload) };
+    } else if (payload.action === 'resourceVisit') {
+      result = { clicks: incrementResourceVisit_(payload) };
     } else {
       throw new Error('Accion no valida.');
     }
@@ -93,6 +100,114 @@ function incrementVisitCount_() {
     const nextCount = (Number(cell.getValue()) || 0) + 1;
     cell.setValue(nextCount);
     return nextCount;
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function readResourceStats_() {
+  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const visits = getOrCreateSheet_(
+    spreadsheet,
+    RESOURCE_VISITS_SHEET,
+    RESOURCE_VISITS_HEADERS
+  );
+  const reviews = getOrCreateSheet_(
+    spreadsheet,
+    REVIEWS_SHEET,
+    REVIEWS_HEADERS
+  );
+  const clickCounts = Object.create(null);
+  const visitLastRow = visits.getLastRow();
+  if (visitLastRow >= 2) {
+    const visitRows = visits.getRange(
+      2,
+      1,
+      visitLastRow - 1,
+      RESOURCE_VISITS_HEADERS.length
+    ).getValues();
+    visitRows.forEach(function(row) {
+      const resourceId = String(row[0] || '');
+      if (resourceId) {
+        clickCounts[resourceId] = Number(row[3]) || 0;
+      }
+    });
+  }
+
+  const ratingTotals = Object.create(null);
+  const reviewLastRow = reviews.getLastRow();
+  if (reviewLastRow >= 2) {
+    const reviewRows = reviews.getRange(
+      2,
+      1,
+      reviewLastRow - 1,
+      REVIEWS_HEADERS.length
+    ).getValues();
+    reviewRows.forEach(function(row) {
+      const resourceId = String(row[1] || '');
+      const rating = Number(row[4]);
+      if (!resourceId || !Number.isInteger(rating) || rating < 1 || rating > 5) {
+        return;
+      }
+      if (!ratingTotals[resourceId]) {
+        ratingTotals[resourceId] = { count: 0, total: 0 };
+      }
+      ratingTotals[resourceId].count += 1;
+      ratingTotals[resourceId].total += rating;
+    });
+  }
+
+  const ratings = Object.create(null);
+  Object.keys(ratingTotals).forEach(function(resourceId) {
+    const total = ratingTotals[resourceId];
+    ratings[resourceId] = {
+      count: total.count,
+      average: Math.round(total.total / total.count * 10) / 10
+    };
+  });
+  return { ok: true, counts: clickCounts, ratings: ratings };
+}
+
+function incrementResourceVisit_(payload) {
+  const resourceName = cleanText_(payload.resourceName, 200);
+  const resourceUrl = String(payload.resourceUrl || '').trim();
+  const resourceId = String(payload.resourceId || '').trim();
+  if (!resourceName || !/^https?:\/\//i.test(resourceUrl) ||
+      resourceUrl.length > 2000 || resourceId.length > 2000 ||
+      normalizeResourceId_(resourceUrl) !== resourceId) {
+    throw new Error('No se pudo validar el recurso.');
+  }
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const sheet = getOrCreateSheet_(
+      SpreadsheetApp.openById(SPREADSHEET_ID),
+      RESOURCE_VISITS_SHEET,
+      RESOURCE_VISITS_HEADERS
+    );
+    const lastRow = sheet.getLastRow();
+    let rowNumber = 0;
+    if (lastRow >= 2) {
+      const ids = sheet.getRange(2, 1, lastRow - 1, 1).getDisplayValues();
+      const index = ids.findIndex(function(row) { return row[0] === resourceId; });
+      if (index >= 0) {
+        rowNumber = index + 2;
+      }
+    }
+
+    if (rowNumber) {
+      const clicksCell = sheet.getRange(rowNumber, 4);
+      const clicks = (Number(clicksCell.getValue()) || 0) + 1;
+      sheet.getRange(rowNumber, 2, 1, 2).setValues([
+        [resourceUrl, safeCell_(resourceName)]
+      ]);
+      clicksCell.setValue(clicks);
+      return clicks;
+    }
+
+    sheet.appendRow([resourceId, resourceUrl, safeCell_(resourceName), 1]);
+    return 1;
   } finally {
     lock.releaseLock();
   }
@@ -235,7 +350,7 @@ function postMessage_(data) {
     return '\\u' + character.charCodeAt(0).toString(16).padStart(4, '0');
   });
   const html = '<!doctype html><html><body><script>' +
-    'window.parent.postMessage(' + serialized + ',"*");' +
+    'window.top.postMessage(' + serialized + ',"*");' +
     '</script></body></html>';
   return HtmlService.createHtmlOutput(html)
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);

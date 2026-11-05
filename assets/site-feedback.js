@@ -6,6 +6,8 @@
   const STYLE_ID = "site-feedback-styles";
   const REQUEST_TIMEOUT_MS = 15000;
   const REVIEW_COOLDOWN_MS = 60000;
+  const REVIEW_CONFIRM_ATTEMPTS = 4;
+  const resourcesByButton = new WeakMap();
 
   const styles = `
     #site-feedback-counter {
@@ -119,6 +121,13 @@
   }
 
   function makeRequestId() {
+    if (window.crypto && window.crypto.getRandomValues) {
+      const bytes = new Uint8Array(16);
+      window.crypto.getRandomValues(bytes);
+      return "sf_" + Array.from(bytes, function(byte) {
+        return byte.toString(16).padStart(2, "0");
+      }).join("");
+    }
     return "sf_" + Date.now().toString(36) + "_" +
       Math.random().toString(36).slice(2);
   }
@@ -167,6 +176,8 @@
       const iframe = document.createElement("iframe");
       const form = document.createElement("form");
       const input = document.createElement("input");
+      let submitted = false;
+      let completed = false;
       const timeout = window.setTimeout(function() {
         cleanup();
         reject(new Error("No se recibió respuesta al guardar. Inténtalo nuevamente."));
@@ -175,6 +186,7 @@
       iframe.name = "site_feedback_" + nonce;
       iframe.title = "Respuesta del servicio de reseñas";
       iframe.hidden = true;
+      iframe.src = "about:blank";
       form.method = "POST";
       form.action = API_URL;
       form.target = iframe.name;
@@ -185,15 +197,34 @@
       form.appendChild(input);
 
       function cleanup() {
+        completed = true;
         window.clearTimeout(timeout);
+        iframe.removeEventListener("load", onLoad);
         window.removeEventListener("message", onMessage);
         form.remove();
         iframe.remove();
       }
 
+      function onLoad() {
+        if (!submitted) {
+          submitted = true;
+          try {
+            form.submit();
+          } catch (error) {
+            cleanup();
+            reject(new Error("No se pudo enviar la solicitud a Google Apps Script."));
+          }
+          return;
+        }
+        window.setTimeout(function() {
+          if (completed) return;
+          cleanup();
+          resolve();
+        }, 500);
+      }
+
       function onMessage(event) {
-        if (event.source !== iframe.contentWindow ||
-            !event.data ||
+        if (!event.data ||
             event.data.nonce !== nonce) {
           return;
         }
@@ -205,10 +236,10 @@
         resolve(event.data.result);
       }
 
+      iframe.addEventListener("load", onLoad);
       window.addEventListener("message", onMessage);
-      document.body.appendChild(iframe);
       document.body.appendChild(form);
-      form.submit();
+      document.body.appendChild(iframe);
     });
   }
 
@@ -337,6 +368,31 @@
     return normalizeResource(url);
   }
 
+  function renderResourceButton(resource) {
+    const hasReviews = resource.reviewCount > 0;
+    const ratingText = hasReviews
+      ? "★ " + resource.average + " · " + resource.reviewCount
+      : "★ Valorar";
+    const clicks = Number(resource.clicks) || 0;
+    const clickText = clicks.toLocaleString() +
+      (clicks === 1 ? " clic" : " clics");
+    resource.button.textContent = ratingText +
+      (resource.clicksAvailable ? " · ↗ " + clickText : "");
+    resource.button.title = (hasReviews
+      ? "Promedio: " + resource.average + " de 5 (" + resource.reviewCount +
+        (resource.reviewCount === 1 ? " reseña). " : " reseñas). ")
+      : "Todavía no hay reseñas. ") + (resource.clicksAvailable
+        ? "Clics en el recurso: " + clickText + "."
+        : "El contador de clics no está disponible.");
+    resource.button.setAttribute("aria-label",
+      "Ver o dejar reseñas: " + resource.name + (hasReviews
+        ? ". Promedio " + resource.average + " de 5, " + resource.reviewCount +
+          (resource.reviewCount === 1 ? " reseña." : " reseñas.")
+        : ". Todavía no tiene reseñas.") + (resource.clicksAvailable
+          ? " " + clickText + " en el recurso."
+          : ""));
+  }
+
   function addReviewButtons(openReviews) {
     document.querySelectorAll(
       "a.resource-btn[href], a[data-resource-review][href]"
@@ -351,18 +407,146 @@
 
       const button = createElement("button", "site-feedback-trigger", "★ Valorar");
       button.type = "button";
-      button.setAttribute("aria-label", "Ver o dejar reseñas: " +
-        (link.textContent.trim() || "recurso"));
+      button.dataset.resourceId = resourceId;
+      const resource = {
+        id: resourceId,
+        url: link.href.split("#")[0],
+        name: link.textContent.trim() || "Recurso",
+        button: button,
+        reviewCount: 0,
+        average: 0,
+        clicks: 0,
+        clicksAvailable: false
+      };
+      resourcesByButton.set(button, resource);
+      button.dataset.resourceName = resource.name;
+      button.setAttribute("aria-label", "Ver o dejar reseñas: " + resource.name);
+      link.addEventListener("click", function(event) {
+        if (event.defaultPrevented || event.button !== 0 ||
+            event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+          return;
+        }
+        trackResourceClick(resource);
+      });
       button.addEventListener("click", function() {
-        openReviews({
-          id: resourceId,
-          url: link.href.split("#")[0],
-          name: link.textContent.trim() || "Recurso",
-          button: button
-        });
+        openReviews(resource);
       });
       link.insertAdjacentElement("afterend", button);
     });
+  }
+
+  function trackResourceClick(resource) {
+    const payload = {
+      action: "resourceVisit",
+      nonce: makeRequestId(),
+      resourceId: resource.id,
+      resourceUrl: resource.url,
+      resourceName: resource.name
+    };
+    const formBody = new URLSearchParams({ payload: JSON.stringify(payload) });
+    const beaconBody = new Blob([formBody.toString()], {
+      type: "application/x-www-form-urlencoded;charset=UTF-8"
+    });
+
+    if (navigator.sendBeacon && navigator.sendBeacon(API_URL, beaconBody)) {
+      if (resource.clicksAvailable) {
+        resource.clicks += 1;
+        renderResourceButton(resource);
+      }
+      return;
+    }
+
+    postRequest(payload)
+      .then(function() {
+        if (resource.clicksAvailable) {
+          resource.clicks += 1;
+          renderResourceButton(resource);
+        }
+      })
+      .catch(function(error) {
+        resource.button.title = "No se pudo registrar el clic: " + error.message;
+      });
+  }
+
+  function updateResourceRating(resource, response) {
+    resource.reviewCount = response.count;
+    resource.average = response.average;
+    renderResourceButton(resource);
+  }
+
+  function loadResourceStats() {
+    return requestJsonp({ action: "resourceStats" })
+      .then(function(response) {
+        document.querySelectorAll(".site-feedback-trigger[data-resource-id]")
+          .forEach(function(button) {
+            const resource = resourcesByButton.get(button);
+            if (!resource) return;
+            const ratings = response.ratings || {};
+            const rating = Object.prototype.hasOwnProperty.call(ratings, resource.id)
+              ? ratings[resource.id]
+              : {};
+            resource.reviewCount = Number(rating.count) || 0;
+            resource.average = Number(rating.average) || 0;
+            const counts = response.counts || {};
+            resource.clicks = Number(
+              Object.prototype.hasOwnProperty.call(counts, resource.id)
+                ? counts[resource.id]
+                : 0
+            ) || 0;
+            resource.clicksAvailable = true;
+            renderResourceButton(resource);
+          });
+      })
+      .catch(function(error) {
+        const resources = [];
+        document.querySelectorAll(".site-feedback-trigger[data-resource-id]")
+          .forEach(function(button) {
+            const resource = resourcesByButton.get(button);
+            if (resource) resources.push(resource);
+          });
+        return Promise.all(resources.map(function(resource) {
+          return requestJsonp({ action: "reviews", resourceId: resource.id })
+            .then(function(response) {
+              updateResourceRating(resource, response);
+              resource.button.title += " No se pudieron cargar los clics: " +
+                error.message;
+            })
+            .catch(function(reviewError) {
+              resource.button.title = "No se pudieron cargar las valoraciones ni los clics: " +
+                reviewError.message;
+            });
+        }));
+      });
+  }
+
+  function waitForReview(resource, rating, comment, previousCount, attempt, submittedAt) {
+    return requestJsonp({ action: "reviews", resourceId: resource.id })
+      .then(function(response) {
+        const saved = response.reviews.some(function(review) {
+          const reviewTime = new Date(review.date).getTime();
+          return Number(review.rating) === rating &&
+            review.comment === comment &&
+            (!Number.isFinite(reviewTime) || reviewTime >= submittedAt - 2000);
+        });
+        if (response.count > previousCount && saved) {
+          return response;
+        }
+        if (attempt >= REVIEW_CONFIRM_ATTEMPTS) {
+          throw new Error("No se pudo confirmar la reseña guardada. Recarga la página para comprobarla.");
+        }
+        return new Promise(function(resolve) {
+          window.setTimeout(resolve, 750);
+        }).then(function() {
+          return waitForReview(
+            resource,
+            rating,
+            comment,
+            previousCount,
+            attempt + 1,
+            submittedAt
+          );
+        });
+      });
   }
 
   function configureFeedback(counter) {
@@ -390,9 +574,7 @@
       requestJsonp({ action: "reviews", resourceId: resource.id })
         .then(function(response) {
           renderReviews(state, response);
-          resource.button.textContent = response.count
-            ? "★ " + response.average + " · " + response.count
-            : "★ Valorar";
+          updateResourceRating(resource, response);
         })
         .catch(function(error) {
           state.summary.textContent = "No se pudieron cargar las reseñas.";
@@ -407,7 +589,12 @@
       event.preventDefault();
       if (!activeResource || !state.form.reportValidity()) return;
 
-      const lastReview = lastReviewByResource.get(activeResource.id) || 0;
+      const resource = activeResource;
+      const rating = Number(state.rating.value);
+      const comment = state.comment.value.trim();
+      const submittedAt = Date.now();
+      const previousCount = resource.reviewCount || 0;
+      const lastReview = lastReviewByResource.get(resource.id) || 0;
       if (Date.now() - lastReview < REVIEW_COOLDOWN_MS) {
         state.message.textContent = "Espera un minuto antes de publicar otra reseña de este recurso.";
         return;
@@ -417,26 +604,32 @@
       state.message.textContent = "Enviando reseña…";
       postRequest({
         action: "review",
-        resourceId: activeResource.id,
-        resourceUrl: activeResource.url,
-        resourceName: activeResource.name,
-        rating: Number(state.rating.value),
-        comment: state.comment.value.trim(),
+        resourceId: resource.id,
+        resourceUrl: resource.url,
+        resourceName: resource.name,
+        rating: rating,
+        comment: comment,
         website: state.honeypot.value
       })
         .then(function() {
-          lastReviewByResource.set(activeResource.id, Date.now());
+          lastReviewByResource.set(resource.id, Date.now());
           state.message.textContent = "¡Gracias! Tu reseña ya fue publicada.";
           state.form.reset();
-          return requestJsonp({
-            action: "reviews",
-            resourceId: activeResource.id
-          });
+          return waitForReview(
+            resource,
+            rating,
+            comment,
+            previousCount,
+            1,
+            submittedAt
+          );
         })
         .then(function(response) {
           renderReviews(state, response);
-          activeResource.button.textContent = "★ " + response.average +
-            " · " + response.count;
+          updateResourceRating(resource, response);
+          state.message.textContent = "¡Gracias! Tu reseña ya fue publicada.";
+          state.dialog.close();
+          resource.button.focus();
         })
         .catch(function(error) {
           state.message.textContent = error.message;
@@ -447,14 +640,23 @@
     });
 
     addReviewButtons(openReviews);
+    loadResourceStats();
 
-    postRequest({ action: "visit" })
-      .then(function() {
-        return requestJsonp({ action: "stats" });
-      })
+    requestJsonp({ action: "stats" })
       .then(function(response) {
         counter.textContent = "Visitas al sitio: " +
           Number(response.totalVisits).toLocaleString();
+        return postRequest({ action: "visit" })
+          .then(function() {
+            return requestJsonp({ action: "stats" });
+          })
+          .then(function(updatedResponse) {
+            counter.textContent = "Visitas al sitio: " +
+              Number(updatedResponse.totalVisits).toLocaleString();
+          })
+          .catch(function(error) {
+            counter.title = "No se pudo registrar esta visita: " + error.message;
+          });
       })
       .catch(function(error) {
         counter.textContent = "Visitas al sitio: no disponibles";
